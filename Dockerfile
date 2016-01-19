@@ -1,7 +1,7 @@
 FROM julia:0.4.3
 
 RUN apt-get update
-RUN apt-get install -y wget build-essential libsnappy-dev
+RUN apt-get install -y wget cmake build-essential libsnappy-dev
 
 ADD . /opt/app
 WORKDIR /opt/app
