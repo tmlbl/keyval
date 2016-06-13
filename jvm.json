@@ -13,5 +13,8 @@
   "julia": "0.4.3",
   "name": "tmlbl/keyval",
   "scripts": {},
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "pre-build": [
+    "RUN apt-get install -y libsnappy-dev"
+  ]
 }

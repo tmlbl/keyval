@@ -9,6 +9,10 @@ http = HttpHandler() do req::Request, res::Response
   elseif req.method == "POST" || req.method == "PUT"
     parts = split(req.resource, '=')
     db_put(db, parts[1], parts[2], length(parts[2]))
+    res.data = "Wrote successfully\n"
+  end
+  if length(res.data) == 0
+    res.data = "Hello from the keyval server\n"
   end
   res.status = 200
   res
