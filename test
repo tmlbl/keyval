@@ -1,0 +1,28 @@
+#!/bin/bash
+
+docker run -d --name keyval_test -p 7000:7000 tmlbl/keyval
+
+UP=false
+
+echo "Waiting for keyval server to start..."
+
+while [[ $UP = false ]]; do
+  sleep 1
+  curl -s localhost:7000
+  if [[ $? = 0 ]]; then
+          UP=true
+  fi
+done
+
+curl -XPOST localhost:7000/foo=bar
+
+BAR=$(curl -s localhost:7000/foo)
+
+docker rm -f keyval_test
+
+if [[ "$BAR" != "bar" ]]; then
+        echo "Failed to set key"
+else
+        echo "Keyval server is working"
+fi
+
